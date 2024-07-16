@@ -1,0 +1,14 @@
+-- return {
+--   "chrisgrieser/nvim-spider",
+--   version = "*",
+--   opts = {
+--     subwordMovement = false,
+--   },
+--   keys = function()
+--     return {
+--       { "w", "<cmd>lua require('spider').motion('w')<cr>", desc = "Find Files" },
+--       { "e", "<cmd>lua require('spider').motion('e')<cr>", desc = "Find Files" },
+--       { "b", "<cmd>lua require('spider').motion('b')<cr>", desc = "Find Files" },
+--     }
+--   end,
+-- }

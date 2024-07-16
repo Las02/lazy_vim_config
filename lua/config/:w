@@ -1,0 +1,75 @@
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
+--
+vim.keymap.set("n", "<tab>", "<C-^>", {})
+vim.keymap.set("n", "<M-d>", "<C-d>M", {})
+vim.keymap.set("n", "<M-u>", "<C-u>M", {})
+vim.keymap.set("n", "<M-o>", "<C-o>", {})
+vim.keymap.set("n", "<M-i>", "<C-i>", {})
+vim.keymap.set("n", "<leader>n", "<cmd> Ex <cr>", {})
+-- vim.keymap.set("n", "<leader>k", "<cmd> make <cr>", {})
+vim.keymap.set("n", "<leader>k", "<cmd> silent !tmux send -t :2 'make ' Enter; tmux select-window -t :2 <cr>", {})
+-- vim.keymap.set("n", "<leader>k", "<cmd> silent !tmux send -t 2 'make ' Enter <cr>", {})
+-- vim.keymap.set("n", "<leader>k", "<cmd> silent !tmux send -t 2 'make ' Enter; tmux resize-pane -Z <cr>", {})
+-- :2 is pane TWO, 2 is just the second one
+
+-- local start = "<cmd>silent !tmux send -t :2 '"
+-- local sick_cmd = 'cat Makefile | grep ":" | sed "s/://" | head -n1 | tr -d "\\n" | tr -d " " | xargs -I {} make {}'
+-- local _end = "' Enter; tmux select-window -t :2'<CR>"
+--
+local tst = "cat Makefile | grep ':' | sed 's/://' | fzf | " .. 'tr -d " "' .. "| xargs -I {} make {}"
+vim.keymap.set(
+  "n",
+  "<leader>l",
+  "<cmd> silent !tmux send -t :2 '" .. tst .. "' Enter ;tmux select-window -t :2 <CR>",
+  {}
+)
+
+_G.FILENAME = "all"
+
+vim.keymap.set("n", "<leader>q", function()
+  local opts = {
+    find_command = { "bash", "/home/las/.config/nvim/lua/config/get_options_from_Makefile.sh" },
+    attach_mappings = function(_, map)
+      map("i", "<CR>", function(prompt_bufnr)
+        -- filename is available at entry[1]
+        local entry = require("telescope.actions.state").get_selected_entry()
+        require("telescope.actions").close(prompt_bufnr)
+        _G.FILENAME = entry[1]
+        print(FILENAME)
+      end)
+      return true
+    end,
+  }
+  require("telescope.builtin").find_files(opts)
+end, {})
+
+local imcool = function(_G)
+  print(_G.FILENAME)
+  local cmd = "! tmux send -t :2 'make " .. _G.FILENAME .. "' Enter; tmux select-window -t :2 "
+  vim.cmd(cmd)
+end
+vim.keymap.set(
+  "n",
+  "<leader>1",
+  function()
+    imcool(_G)
+  end,
+  -- "<cmd> !tmux send -t :2 'make " .. _G.FILENAME .. "' Enter; tmux select-window -t :2 <cr>",
+  { silent = true }
+)
+
+-- print(start .. sick_cmd .. _end)
+--
+-- end, {})
+
+vim.keymap.set("n", "s", "<cmd> HopWord <cr>", {})
+vim.keymap.set("v", "s", "<cmd> HopWord <cr>", {})
+vim.keymap.set("o", "s", "<cmd> HopWord <cr>", {})
+
+vim.api.nvim_set_option("clipboard", "")
+vim.keymap.set("v", "<C-c>", '"+yi', {})
+-- vim.keymap.set("v", "y", '"+yi', {})
+-- vim.keymap.set("n", "y", '"+yi', {})
+-- vim.keymap.set("v", "y", '"+yi', {})
