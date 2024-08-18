@@ -7,7 +7,7 @@ vim.keymap.set("n", "<M-d>", "<C-d>M", {})
 vim.keymap.set("n", "<M-u>", "<C-u>M", {})
 vim.keymap.set("n", "<M-o>", "<C-o>", {})
 vim.keymap.set("n", "<M-i>", "<C-i>", {})
-vim.keymap.set("n", "<leader>n", "<cmd> Ex <cr>", {})
+-- vim.keymap.set("n", "<leader>n", "<cmd> Ex <cr>", {})
 -- vim.keymap.set("n", "<leader>k", "<cmd> make <cr>", {})
 -- vim.keymap.set("n", "<leader>k", "<cmd> silent !tmux send -t :2 'make ' Enter; tmux select-window -t :2 <cr>", {})
 -- vim.keymap.set("n", "<leader>k", "<cmd> silent !tmux send -t 2 'make ' Enter <cr>", {})
@@ -105,6 +105,9 @@ vim.keymap.set("n", "s", "<cmd> HopWord <cr>", {})
 vim.keymap.set("v", "s", "<cmd> HopWord <cr>", {})
 vim.keymap.set("o", "s", "<cmd> HopWord <cr>", {})
 
+-- vim.keymap.set("n", "h", "^", {})
+-- vim.keymap.set("n", "l", "$", {})
+
 vim.api.nvim_set_option("clipboard", "")
 vim.keymap.set("v", "<C-c>", '"+yi', {})
 
@@ -115,9 +118,13 @@ vim.keymap.set("n", "<leader>d", "<cmd> bd <cr>", {})
 -- vim.keymap.set("n", "y", '"+yi', {})
 -- vim.keymap.set("v", "y", '"+yi', {})
 --
---
---
---
+-- vim.keymap.set("n", "<leader>q", "<cmd> bd <cr>", {})
+
+vim.keymap.del("n", "=p", {})
+vim.keymap.del("n", "=P", {})
+vim.keymap.set("n", "=", "}", {})
+vim.keymap.set("v", "=", "}", {})
+vim.keymap.set("o", "=", "}", {})
 --
 -- vim.keymap.set("n", "[e", "<cmd>cn<cr>", {})
 -- vim.keymap.set("n", "]e", "<cmd>cp<cr>", {})
@@ -126,11 +133,11 @@ vim.keymap.del("n", "<leader>fn", {})
 vim.keymap.del("n", "<leader>ft", {})
 vim.keymap.del("n", "<leader>fT", {})
 
-vim.keymap.del("n", "<leader>w-", {})
-vim.keymap.del("n", "<leader>w|", {})
-vim.keymap.del("n", "<leader>wd", {})
-vim.keymap.del("n", "<leader>wm", {})
-vim.keymap.del("n", "<leader>ww", {})
+-- vim.keymap.del("n", "<leader>w-", {})
+-- vim.keymap.del("n", "<leader>w|", {})
+-- vim.keymap.del("n", "<leader>wd", {})
+-- vim.keymap.del("n", "<leader>wm", {})
+-- vim.keymap.del("n", "<leader>ww", {})
 
 if vim.g.vscode then
   local vscode = require("vscode")
